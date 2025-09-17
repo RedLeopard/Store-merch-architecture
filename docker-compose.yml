@@ -1,0 +1,13 @@
+# Local demo (no external dependencies). Add Redpanda later if desired.
+services:
+  normalizer:
+    build: ./services/gcp-normalizer
+    command: uvicorn app:app --host 0.0.0.0 --port 8080
+    volumes:
+      - /tmp:/tmp
+    ports: ["8080:8080"]
+  consumer:
+    build: ./services/azure-consumers
+    command: python consumer.py
+    volumes:
+      - /tmp:/tmp

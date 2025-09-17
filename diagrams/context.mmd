@@ -1,0 +1,10 @@
+flowchart LR
+  SR[(Systems of Record)] --> NORM[Normalization Service (GCP Cloud Run)]
+  NORM -->|Event: Price/Inventory| K[(Confluent Cloud Kafka)]
+  K --> AZF[Azure Functions Consumers]
+  K --> GDF[Dataflow Stream ETL]
+  AZF --> COSMOS[(Cosmos DB: Projections)]
+  GDF --> BQ[(BigQuery: Audit & BI)]
+  COSMOS --> APIM[Azure API Management]
+  APIM --> APPS[Downstream Apps: POS, E‑com, Mobile]
+  BQ --> BI[Analytics & Dashboards]

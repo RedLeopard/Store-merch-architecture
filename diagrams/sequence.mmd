@@ -1,0 +1,17 @@
+sequenceDiagram
+  participant SoR as System of Record
+  participant Norm as GCP Normalize Service
+  participant K as Kafka (Confluent Cloud)
+  participant Fn as Azure Functions
+  participant DB as Cosmos DB
+  participant API as API Mgmt
+  participant App as Downstream App
+
+  SoR->>Norm: POST /price-change
+  Norm->>K: publish price.event v3 (idempotent)
+  K-->>Fn: consume price.event
+  Fn->>DB: upsert product price
+  Fn-->>K: emit price.applied (for audit)
+  API->>DB: GET /products/{id}/price
+  DB-->>API: 200 OK
+  API-->>App: current price
