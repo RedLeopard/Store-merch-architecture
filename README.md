@@ -6,6 +6,24 @@ The architecture uses Azure and Google Cloud Platform (GCP) together with Kafka 
 
 <img width="4828" height="584" alt="Image" src="https://github.com/user-attachments/assets/52779285-517d-4785-8238-ae4a98f8808f" />
 
+```mermaid
+flowchart LR
+    sor[(System of Record<br/>(ERP, Merch DB))] --> normalizer[Normalizer<br/>(GCP Cloud Run)]
+    normalizer --> kafka((Event Bus<br/>(Confluent Kafka)))
+    kafka --> consumer[Consumer<br/>(Azure Function)]
+    consumer --> cosmos[(Cosmos DB<br/>(Projections))]
+    cosmos --> apim[API Management]
+    apim --> apps((Downstream Apps<br/>Web, Mobile, POS))
+
+    kafka --> bq[(Audit Store<br/>(BigQuery))]
+    consumer --> bq
+    bq -.-> consumer
+
+    normalizer -.-> monitor[Observability<br/>(Azure Monitor, Grafana)]
+    consumer -.-> monitor
+    kafka -.-> monitor
+
+
 ## Goals
 - Real-time propagation of price and inventory changes  
 - Immutable audit logs with replay support  
