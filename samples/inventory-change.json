@@ -1,0 +1,7 @@
+{
+  "sku": "ABC-123",
+  "location": "SEA01",
+  "delta": -2,
+  "reason": "sale",
+  "uom": "EA"
+}
