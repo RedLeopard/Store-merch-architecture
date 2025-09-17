@@ -22,7 +22,7 @@ flowchart LR
     normalizer -.-> monitor[Observability<br/>(Azure Monitor, Grafana)]
     consumer -.-> monitor
     kafka -.-> monitor
-
+```
 
 ## Goals
 - Real-time propagation of price and inventory changes  
