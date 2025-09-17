@@ -4,6 +4,8 @@
 This project explores a multi-cloud solution for synchronizing price and inventory across Costco’s merchandising systems.  
 The architecture uses Azure and Google Cloud Platform (GCP) together with Kafka (Confluent Cloud) to provide reliable, real-time updates while maintaining auditability, scalability, and security.
 
+<img width="4828" height="584" alt="Image" src="https://github.com/user-attachments/assets/52779285-517d-4785-8238-ae4a98f8808f" />
+
 ## Goals
 - Real-time propagation of price and inventory changes  
 - Immutable audit logs with replay support  
