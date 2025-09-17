@@ -1,20 +1,31 @@
-# Merchandising Multi‑Cloud Harmonization (GCP + Azure) — Interview Project
+Costco Merchandising Multi-Cloud Architecture
+Overview
+This project demonstrates a solution architecture for Costco’s Merchandising domain, focusing on how to keep price and inventory synchronized across channels and regions. The design leverages Azure and GCP together with an event-driven backbone to ensure real-time updates, auditability, disaster recovery, and cost efficiency.
+I built this repo to showcase how I approach architecture problems as a Solutions Architect: starting with the business challenge, designing the target state, capturing trade-offs in Architecture Decision Records (ADRs), and providing runbooks, security guidance, and cost considerations.
+Goals
+Ensure real-time propagation of price and inventory updates across multiple channels (stores, e-commerce, mobile).
+Provide auditability with an immutable event log and replay capabilities.
+Align with a multi-cloud direction (Azure + GCP) using portable, standards-based components.
+Meet non-functional requirements for availability, scalability, security, and cost control.
+Deliver a demo-ready solution that can be shown locally (no spend) or lightly in cloud trials.
+Repo Contents
+diagrams/ — Context, Logical, and Sequence diagrams (Mermaid).
+adr/ — Architecture Decision Records documenting trade-offs.
+iac/ — Terraform stubs (safe: no resources created until uncommented).
+services/ — Lightweight mock services to simulate producers/consumers.
+runbooks/ — Disaster recovery, replay, and incident response playbooks.
+security/ — IAM and key-management guidelines.
+samples/ — Example price/inventory payloads.
+Demo Options
+Local (FREE) → Run everything locally with Docker. Publish sample events, watch consumers update projections, and query results.
+Screenshot Walkthrough (FREE) → Use the diagrams and runbooks to walk through the architecture, governance, and DR strategy.
+Lite Cloud (Trial Credits) → Deploy a single Kafka topic (Confluent free tier) and one Function (Azure/GCP). Publish an event, show it flows, then tear down immediately.
+See runbooks/demo-playbook.md for step-by-step instructions.
+Why This Matters for Costco
+Directly addresses Merchandising needs: price accuracy, inventory visibility, fewer manual errors.
+Showcases multi-cloud design leadership across Azure and GCP.
+Demonstrates governance, security, and DR practices that scale at enterprise level.
+Provides a concrete, interview-ready artifact I can discuss in detail.
 
-**Goal:** Show an *architecture-first* solution for near‑real‑time price & inventory sync across channels/countries with auditability, governance, and DR — using *portable* components that fit Costco’s multi‑cloud (GCP + Azure) direction.
-
-> This repo is interview‑ready and cost‑safe: you can demo locally with Docker (no cloud spend), or optionally light‑touch in cloud and then **tear down** immediately.
-
-## Contents
-- `diagrams/` — Mermaid diagrams (context, logical, sequence)
-- `adr/` — Architecture Decision Records
-- `iac/` — Terraform stubs (no apply by default)
-- `services/` — Mock services (no cloud deps)
-- `runbooks/` — DR, replay, incident checklists
-- `security/` — IAM & key‑management guidelines
-- `samples/` — Example events & API payloads
-
-## Demo Paths
-1) **Local-Only (FREE):** Dockerized Redpanda (Kafka‑compatible) + FastAPI normalizer + Python consumer + SQLite (as Cosmos proxy).2) **Screenshot-Only (FREE):** Use diagrams + curl to local mocks; talk through ops & DR.
-3) **Lite Cloud (Trial Credits):** Create 1 topic in Confluent Cloud and a serverless function in Azure or Cloud Run in GCP; publish 1 event; **delete immediately**.
 
 See `runbooks/demo-playbook.md`.
