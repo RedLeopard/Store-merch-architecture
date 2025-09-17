@@ -1,60 +1,43 @@
-# 🏬 Costco Merchandising Multi-Cloud Architecture
+# Costco Merchandising Multi-Cloud Architecture
 
-![Architecture](https://img.shields.io/badge/Role-Solutions%20Architect-blueviolet?style=for-the-badge)
-![Cloud](https://img.shields.io/badge/Multi--Cloud-Azure%20%7C%20GCP-00aaff?style=for-the-badge)
-![Focus](https://img.shields.io/badge/Domain-Merchandising-success?style=for-the-badge)
-![Status](https://img.shields.io/badge/Demo-Ready-brightgreen?style=for-the-badge)
+## Overview
+This project explores a multi-cloud solution for synchronizing price and inventory across Costco’s merchandising systems.  
+The architecture uses Azure and Google Cloud Platform (GCP) together with Kafka (Confluent Cloud) to provide reliable, real-time updates while maintaining auditability, scalability, and security.
 
----
+## Goals
+- Real-time propagation of price and inventory changes  
+- Immutable audit logs with replay support  
+- Multi-cloud alignment with Azure + GCP  
+- Resilient design meeting availability, scalability, security, and cost requirements  
 
-## 📖 Overview
-This project demonstrates a **solution architecture** for **Costco’s Merchandising domain**, tackling the challenge of keeping **price and inventory synchronized across channels and regions**.  
-The design leverages **Azure + GCP** together with an **event-driven backbone** to ensure **real-time updates**, **auditability**, **disaster recovery**, and **cost efficiency**.
+## Architecture
+- **Producers (GCP):** Cloud Run services normalize and publish events  
+- **Event Backbone:** Confluent Cloud Kafka with schema registry, DLQs, and replay topics  
+- **Consumers (Azure):** Azure Functions process events and update Cosmos DB projections  
+- **Audit & Analytics:** BigQuery provides immutable event logs and analytics  
+- **Security:** TLS in transit, KMS encryption at rest, least-privilege IAM roles, workload identity federation  
 
-I built this repo to highlight how I approach **architecture challenges** as a Solutions Architect:  
-👉 Start with the business problem → design the target state → capture trade-offs in ADRs → deliver with governance, security, and DR in mind.
+## Repository Layout
+- diagrams/ — Context, logical, and sequence diagrams  
+- adr/ — Architecture decision records  
+- iac/ — Terraform stubs for infrastructure (safe: not applied by default)  
+- services/ — Example producer/consumer services  
+- runbooks/ — Operational guides (failover, replay, incident handling)  
+- security/ — IAM and key management notes  
+- samples/ — Example price/inventory payloads  
 
----
+## Architecture Decisions
+- ADR-0001: Kafka selected as neutral event bus across Azure + GCP  
+- ADR-0002: Cosmos DB chosen for read projections in Azure  
+- ADR-0003: BigQuery used as the audit log and analytics store  
 
-## 🎯 Goals
-- ⚡ **Real-time propagation** of price & inventory changes across stores, e-commerce, and mobile  
-- 🗂️ **Auditability & replay** with an immutable event log  
-- ☁️ **Multi-cloud alignment** (Azure + GCP) using portable, standards-based components  
-- 🔒 **Non-functional excellence**: availability, scalability, security, and cost control  
-- 🛠️ **Demo-ready**: works locally (no spend) or lightly in cloud trials  
+## Cost Considerations
+The design minimizes costs by relying on managed, serverless services:  
+- Local setup runs free with Docker + SQLite  
+- Trial credits cover light deployments in Azure/GCP  
+- All cloud resources should be removed immediately after testing  
 
----
-
-## 📂 Repo Contents
-- 📊 **`diagrams/`** — Context, Logical, and Sequence diagrams (Mermaid)  
-- 📜 **`adr/`** — Architecture Decision Records  
-- 🏗️ **`iac/`** — Terraform stubs (safe: no apply by default)  
-- 🔧 **`services/`** — Mock producer/consumer services  
-- 📑 **`runbooks/`** — DR, replay, and incident response guides  
-- 🔐 **`security/`** — IAM and key-management guidelines  
-- 🧾 **`samples/`** — Example price/inventory payloads  
-
----
-
-## 🚀 Demo Options
-1. **Local (FREE)** → Run with Docker, publish sample events, and query results  
-2. **Screenshot Walkthrough (FREE)** → Use diagrams + runbooks to explain governance & DR strategy  
-3. **Lite Cloud (Trial Credits)** → Deploy one Kafka topic + one Function (Azure/GCP), publish an event, then **tear down immediately**  
-
-👉 See **[`runbooks/demo-playbook.md`](runbooks/demo-playbook.md)** for full step-by-step instructions  
-
----
-
-## 💡 Why This Matters for Costco
-- 🏬 Directly addresses **Merchandising pain points**: price accuracy & inventory visibility  
-- 🌐 Showcases **multi-cloud leadership** across Azure + GCP  
-- 🔒 Demonstrates **governance, security, and DR practices** at enterprise scale  
-- 🧑‍💼 Provides a **concrete, interview-ready artifact** for discussion  
-
----
-
-## 👤 Author
-**Edward Thornton**  
-AWS Certified Solutions Architect – Professional   
-
----
+## Runbooks
+- Disaster Recovery / Failover steps  
+- Event replay procedure  
+- Incident response checklist  

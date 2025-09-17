@@ -1,4 +1,5 @@
 # IAM / Identity
-- Use OIDC from GitHub Actions to Azure/GCP (no static keys).
-- Separate producer/consumer service accounts; least privilege on topics.
-- Key management via Key Vault / Secret Manager; periodic rotation.
+
+- Use workload identity federation to avoid static credentials.  
+- Separate service accounts for producers and consumers.  
+- Apply least-privilege roles at topic and DB levels.  

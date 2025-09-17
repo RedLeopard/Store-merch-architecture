@@ -1,4 +1,5 @@
 # Key Management
-- Encrypt data at rest (provider KMS).
-- TLS 1.2+ in transit; private networking where possible.
-- Mask/avoid PII in events; use attribute-based access controls for sensitive fields.
+
+- Encrypt data at rest with provider KMS.  
+- Use TLS 1.2+ for in-transit encryption.  
+- Apply masking for sensitive fields in events.  
