@@ -55,7 +55,6 @@ I built this repo to highlight how I approach **architecture challenges** as a S
 
 ## 👤 Author
 **Edward Thornton**  
-AWS Certified Solutions Architect – Professional  
-Founder, Cloud Systems Direct LLC  
+AWS Certified Solutions Architect – Professional   
 
 ---
