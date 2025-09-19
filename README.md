@@ -1,4 +1,4 @@
-# Costco Merchandising Multi-Cloud Architecture
+# Department Store Merchandising Multi-Cloud Architecture
 
 ## Overview
 This project explores a multi-cloud solution for synchronizing price and inventory across Costco’s merchandising systems.  
